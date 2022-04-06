@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearance.App.SmallComponent.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
+    </style>
+
+    <style name="TextLabelDummy" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="colorPrimary">@color/red</item>  // Text Color
+        <item name="android:textColorHint">@color/black</item>    // Hint Color
+        <item name="colorControlActivated">@color/red</item>    //Floating label color
+    </style>
+</resources>

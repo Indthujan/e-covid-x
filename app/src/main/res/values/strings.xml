@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Ecovidx</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="mail_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="new_password">New Password</string>
+    <string name="forget_password">Forgot Password?</string>
+    <string name="no_member_sign_up">Not a member yet? <font color="#FF0000">Sign up</font></string>
+    <string name="have_acc_sign_in">Already have an Account? <font color="#FF0000">Sign in</font></string>
+    <string name="resend_otp">Didn\'t Receive the OTP?  <font color="#FF0000">Resend OTP</font></string>
+    <string name="forget_password_txt">Forgot Password</string>
+    <string name="pwd_reset">Reset Your Password</string>
+    <string name="enter_mail">Enter Email Address to Verify Account</string>
+    <string name="pwd_reset_sub">Enter New Password</string>
+    <string name="enter_otp">Enter The Otp Sent To</string>
+    <string name="verify">Verify</string>
+    <string name="verify_p">Verify &amp; Process</string>
+
+</resources>

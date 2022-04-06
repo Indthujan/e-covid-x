@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.app.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_outline_shopping_cart</item>
+        <item name="postSplashScreenTheme">@style/Theme.Ecovidx</item>
+    </style>
+</resources>
