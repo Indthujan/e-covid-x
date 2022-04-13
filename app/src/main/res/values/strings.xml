@@ -20,5 +20,6 @@
     <string name="enter_otp">Enter The Otp Sent To</string>
     <string name="verify">Verify</string>
     <string name="verify_p">Verify &amp; Process</string>
+    <string name="categories">Categories</string>
 
 </resources>
