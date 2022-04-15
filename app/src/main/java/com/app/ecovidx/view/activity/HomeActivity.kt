@@ -23,25 +23,22 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val toolbar = findViewById<View>(R.id.toolbar_home) as Toolbar
-        setSupportActionBar(toolbar)
-
 
         val repository = HomeRepository()
         val viewModelProviderFactory = HomeViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
 
-        val backView = findViewById<View>(R.id.home_view)
-        backView.setOnClickListener {
-
-            val sharedPref = this.getSharedPreferences("access_token", Context.MODE_PRIVATE)
-                ?: return@setOnClickListener
-            sharedPref.edit().clear().apply()
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        val backView = findViewById<View>(R.id.home_view)
+//        backView.setOnClickListener {
+//
+//            val sharedPref = this.getSharedPreferences("access_token", Context.MODE_PRIVATE)
+//                ?: return@setOnClickListener
+//            sharedPref.edit().clear().apply()
+//
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

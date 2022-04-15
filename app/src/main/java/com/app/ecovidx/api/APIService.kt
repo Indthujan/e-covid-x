@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface APIService {
 
@@ -38,5 +39,12 @@ interface APIService {
 
     @GET("home")
     suspend fun getHomeProductList(): Response<ProductType>
+
+    @GET("product/{id}/category/{offset}/offset/{limit}/limit")
+    suspend fun getProductsByCategoryID(
+        @Path("id") id : Int,
+        @Path("offset") offset : Int,
+        @Path("limit") limit : Int
+    ): Response<List<Product>>
 
 }

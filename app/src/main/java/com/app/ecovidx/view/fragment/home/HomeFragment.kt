@@ -2,8 +2,10 @@ package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ecovidx.R
 import com.app.ecovidx.adapter.CategoryAdapter
@@ -11,18 +13,16 @@ import com.app.ecovidx.adapter.ProductTypeAdapter
 import com.app.ecovidx.databinding.FragmentHomeBinding
 import com.app.ecovidx.model.Category
 import com.app.ecovidx.model.Product
-import com.app.ecovidx.model.ProductType
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.HomeActivity
 import com.app.ecovidx.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItemListener {
 
     lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     lateinit var categoryAdapter: CategoryAdapter
     lateinit var productTypeAdapter: ProductTypeAdapter
-    private var itemsList: List<Category> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,18 +35,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getCategoriesResponse()
         getProductListResponse()
 
-        viewModel.getCategories()
-        viewModel.getHomeProductList()
     }
 
     private fun getProductListResponse() {
         viewModel.productListResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    it.data?.let {
-                        setUpBestDealsRecyclerView(it.best_deals)
-                        setUpNwOfrsRecyclerView(it.best_deals)
-                        setUpSpclOfrsRecyclerView(it.best_deals)
+                    it.data?.let { productType ->
+
+                        if (productType.best_deals.isNotEmpty()) {
+                            setUpBestDealsRecyclerView(productType.best_deals)
+                        }
+                        if (productType.latest_products.isNotEmpty()) {
+                            setUpLatestProductsRecyclerView(productType.latest_products)
+                        }
+                        if (productType.special_offers.isNotEmpty()) {
+                            setUpSpecialOffersRecyclerView(productType.special_offers)
+                        }
                         binding.progressBar.visibility = View.GONE
                     }
                 }
@@ -85,7 +90,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUpCategoryRecyclerView(list: List<Category>) {
-        categoryAdapter = CategoryAdapter(list)
+        categoryAdapter = CategoryAdapter(list, this)
         binding.rvCategories.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -100,7 +105,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setUpNwOfrsRecyclerView(list: List<Product>) {
+    private fun setUpLatestProductsRecyclerView(list: List<Product>) {
         productTypeAdapter = ProductTypeAdapter(list)
         binding.rvNewOffers.apply {
             adapter = productTypeAdapter
@@ -108,7 +113,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun setUpSpclOfrsRecyclerView(list: List<Product>) {
+    private fun setUpSpecialOffersRecyclerView(list: List<Product>) {
         productTypeAdapter = ProductTypeAdapter(list)
         binding.rvSpclOfrs.apply {
             adapter = productTypeAdapter
@@ -116,5 +121,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onCategoryItemClicked(category: Category) {
 
+        if (category.count > 0) {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToProductsByCategoryFragment(
+                    category.term_id,
+                    category.name
+                )
+            )
+        }
+    }
 }

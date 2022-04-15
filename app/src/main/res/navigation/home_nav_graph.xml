@@ -7,5 +7,36 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.ecovidx.view.fragment.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_productsByCategoryFragment"
+            app:destination="@id/productsByCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right">
+            <argument
+                android:name="category_id"
+                app:argType="integer" />
+
+            <argument
+                android:name="category_name"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/productsByCategoryFragment"
+        android:name="com.app.ecovidx.view.fragment.home.ProductsByCategoryFragment"
+        android:label="ProductsByCategoryFragment">
+        <argument
+            android:name="category_id"
+            app:argType="integer"/>
+        <argument
+            android:name="category_name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Category" />
+
+    </fragment>
 </navigation>
