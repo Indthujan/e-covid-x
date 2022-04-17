@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.app.ecovidx.R
 import com.app.ecovidx.databinding.FragmentPwdResetOtpBinding
-import com.app.ecovidx.model.Password
+import com.app.ecovidx.data.model.Password
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.MainActivity
 import com.app.ecovidx.viewmodel.AuthViewModel

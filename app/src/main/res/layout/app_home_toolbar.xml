@@ -37,4 +37,11 @@
         android:text="Back"
         android:layout_marginStart="15dp"/>
 
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

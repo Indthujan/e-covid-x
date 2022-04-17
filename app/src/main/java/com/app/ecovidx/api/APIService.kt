@@ -1,6 +1,6 @@
 package com.app.ecovidx.api
 
-import com.app.ecovidx.model.*
+import com.app.ecovidx.data.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -43,6 +43,12 @@ interface APIService {
     @GET("product/{id}/category/{offset}/offset/{limit}/limit")
     suspend fun getProductsByCategoryID(
         @Path("id") id : Int,
+        @Path("offset") offset : Int,
+        @Path("limit") limit : Int
+    ): Response<List<Product>>
+
+    @GET("product/{offset}/offset/{limit}/limit")
+    suspend fun getAllProducts(
         @Path("offset") offset : Int,
         @Path("limit") limit : Int
     ): Response<List<Product>>

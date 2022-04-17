@@ -1,23 +1,24 @@
 package com.app.ecovidx.view.activity
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.app.ecovidx.R
-import com.app.ecovidx.databinding.ActivityHomeBinding
 import com.app.ecovidx.repository.HomeRepository
+import com.app.ecovidx.view.fragment.home.HomeFragmentDirections
+import com.app.ecovidx.view.fragment.home.ProductDetailFragmentDirections
+import com.app.ecovidx.view.fragment.home.ProductsByCategoryFragmentDirections
 import com.app.ecovidx.viewmodel.HomeViewModel
 import com.app.ecovidx.viewmodel.providers.HomeViewModelProviderFactory
-
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
     lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,24 @@ class HomeActivity : AppCompatActivity() {
         val repository = HomeRepository()
         val viewModelProviderFactory = HomeViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as NavHostFragment
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setupWithNavController(navHostFragment.navController)
+        bottomNavigationView.menu.getItem(1).isEnabled = false
+
+        val fab = findViewById<View>(R.id.fab)
+        fab.setOnClickListener {
+            when (navHostFragment.navController.currentDestination?.label) {
+                "HomeFragment" -> findNavController(this, R.id.homeNavHostFragment)
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToAllProductsFragment())
+                "ProductsByCategoryFragment" -> findNavController(this, R.id.homeNavHostFragment)
+                    .navigate(ProductsByCategoryFragmentDirections.actionProductsByCategoryFragmentToAllProductsFragment())
+                "ProductDetailFragment" -> findNavController(this, R.id.homeNavHostFragment)
+                    .navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToAllProductsFragment())
+            }
+        }
 
 //        val backView = findViewById<View>(R.id.home_view)
 //        backView.setOnClickListener {

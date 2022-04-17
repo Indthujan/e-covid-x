@@ -4,7 +4,7 @@
     tools:showIn="@layout/activity_home">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_outline_home"
         tools:ignore="MenuTitle"/>
 
@@ -13,7 +13,7 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/user"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_outline_account_circle"
         tools:ignore="MenuTitle" />
 

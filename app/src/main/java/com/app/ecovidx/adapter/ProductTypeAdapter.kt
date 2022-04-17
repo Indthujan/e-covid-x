@@ -7,17 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ecovidx.R
-import com.app.ecovidx.model.Category
-import com.app.ecovidx.model.Product
-import com.app.ecovidx.model.ProductType
+import com.app.ecovidx.data.model.Product
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 
 
-
-
-class ProductTypeAdapter(private val productList: List<Product>) :
+class ProductTypeAdapter(
+    private val productList: List<Product>,
+    private val listener: ClickItemListener
+) :
     RecyclerView.Adapter<ProductTypeAdapter.ProductListViewHolder>() {
 
     inner class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,9 +44,18 @@ class ProductTypeAdapter(private val productList: List<Product>) :
             .transition(withCrossFade(factory))
             .into(holder.imageView)
         holder.itemTextView.text = product.product_title
+
+        holder.imageView.setOnClickListener {
+            listener.onProductItemClicked(product)
+        }
     }
 
     override fun getItemCount(): Int {
         return productList.size
     }
+
+    interface ClickItemListener {
+        fun onProductItemClicked(product: Product)
+    }
+
 }

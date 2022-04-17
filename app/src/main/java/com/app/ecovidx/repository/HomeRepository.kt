@@ -10,4 +10,7 @@ class HomeRepository {
 
     suspend fun getProductsByCategoryID(id: Int, offset: Int, limit: Int) =
         RetrofitInstance.api.getProductsByCategoryID(id, offset, limit)
+
+    suspend fun getAllProducts(offset: Int, limit: Int) =
+        RetrofitInstance.api.getAllProducts(offset, limit)
 }

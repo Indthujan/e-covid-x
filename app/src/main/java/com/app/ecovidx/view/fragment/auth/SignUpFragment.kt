@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.app.ecovidx.R
 import com.app.ecovidx.databinding.FragmentSignUpBinding
-import com.app.ecovidx.model.Register
+import com.app.ecovidx.data.model.Register
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.MainActivity
 import com.app.ecovidx.viewmodel.AuthViewModel

@@ -2,27 +2,24 @@ package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ecovidx.R
 import com.app.ecovidx.adapter.ProductsByCategoryAdapter
-import com.app.ecovidx.databinding.FragmentProductsbyCategoryBinding
 import com.app.ecovidx.data.model.Product
+import com.app.ecovidx.databinding.FragmentAllProductsBinding
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.HomeActivity
 import com.app.ecovidx.viewmodel.HomeViewModel
 import java.util.ArrayList
 
-class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_category), ProductsByCategoryAdapter.ClickItemListener {
+class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsByCategoryAdapter.ClickItemListener {
 
-    private lateinit var binding: FragmentProductsbyCategoryBinding
-    private val args: ProductsByCategoryFragmentArgs by navArgs()
+    private lateinit var binding: FragmentAllProductsBinding
     lateinit var viewModel: HomeViewModel
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
     private var itemsList = ArrayList<Product>()
@@ -35,30 +32,29 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fragmentProductsCategoryBinding = FragmentProductsbyCategoryBinding.bind(view)
-        binding = fragmentProductsCategoryBinding
-        binding.fpcToolbar.title.text = args.categoryName
+        val fragmentAllProductsBinding = FragmentAllProductsBinding.bind(view)
+        binding = fragmentAllProductsBinding
 
         viewModel = (activity as HomeActivity).viewModel
         viewModel.productsByCategory.value = null
         getProductsByCategoryResponse()
-        viewModel.getProductsByCategoryID(args.categoryId, offset, limit)
+        viewModel.getAllProducts(offset, limit)
 
-        binding.fpcToolbar.backView.setOnClickListener {
+        binding.allProductsToolbar.backView.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.rvProductsOfCategories.addOnScrollListener(object :
+        binding.rvAllProducts.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == totalCount - 1) {
-                    if (totalCount < args.categoryCount) {
+                    if (totalCount < 200) {
                         offset += 21
                         loadData = true
-                        viewModel.getProductsByCategoryID(args.categoryId, offset, limit)
+                        viewModel.getAllProducts(offset, limit)
                     }
                 }
             }
@@ -66,7 +62,7 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
     }
 
     private fun getProductsByCategoryResponse() {
-        viewModel.productsByCategory.observe(viewLifecycleOwner, Observer {
+        viewModel.allProducts.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
                     it.data?.let { productList ->
@@ -102,7 +98,7 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
 
     private fun setUpProductsByCategoryRecyclerView(list: ArrayList<Product>) {
         productsByCategoryAdapter = ProductsByCategoryAdapter(list, this)
-        binding.rvProductsOfCategories.apply {
+        binding.rvAllProducts.apply {
             adapter = productsByCategoryAdapter
             layoutManager = GridLayoutManager(activity, 3, LinearLayoutManager.VERTICAL, false)
         }
@@ -110,7 +106,7 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
 
     override fun onProductItemClicked(product: Product) {
         findNavController().navigate(
-            ProductsByCategoryFragmentDirections.actionProductsByCategoryFragmentToProductDetailFragment(product)
+            AllProductsFragmentDirections.actionAllProductsFragmentToProductDetailFragment(product)
         )
 
     }

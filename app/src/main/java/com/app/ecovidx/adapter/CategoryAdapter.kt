@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ecovidx.R
-import com.app.ecovidx.model.Category
+import com.app.ecovidx.data.model.Category
 
 class CategoryAdapter(
     private val categoryList: List<Category>,

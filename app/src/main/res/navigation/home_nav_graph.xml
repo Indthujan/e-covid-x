@@ -18,12 +18,28 @@
             <argument
                 android:name="category_id"
                 app:argType="integer" />
-
             <argument
                 android:name="category_name"
                 app:argType="string"
                 app:nullable="true" />
+            <argument
+                android:name="category_count"
+                app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right">
+            <argument
+                android:name="product"
+                app:argType="com.app.ecovidx.data.model.Product" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsByCategoryFragment"
@@ -31,12 +47,53 @@
         android:label="ProductsByCategoryFragment">
         <argument
             android:name="category_id"
-            app:argType="integer"/>
+            app:argType="integer" />
         <argument
             android:name="category_name"
+            android:defaultValue="Category"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="Category" />
+            app:nullable="true" />
+        <argument
+            android:name="category_count"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_productsByCategoryFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_productsByCategoryFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment">
+            <argument
+                android:name="product"
+                app:argType="com.app.ecovidx.data.model.Product" />
 
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.app.ecovidx.view.fragment.home.ProductDetailFragment"
+        android:label="ProductDetailFragment">
+        <argument
+            android:name="product"
+            app:argType="com.app.ecovidx.data.model.Product" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.ecovidx.view.fragment.home.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/allProductsFragment"
+        android:name="com.app.ecovidx.view.fragment.home.AllProductsFragment"
+        android:label="AllProductsFragment" >
+        <action
+            android:id="@+id/action_allProductsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment">
+            <argument
+                android:name="product"
+                app:argType="com.app.ecovidx.data.model.Product" />
+
+        </action>
     </fragment>
 </navigation>

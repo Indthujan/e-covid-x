@@ -7,20 +7,27 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.ecovidx.R
-import com.app.ecovidx.model.Product
+import com.app.ecovidx.data.model.Product
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 
-class ProductsByCategoryAdapter(private val productList: List<Product>) :
+class ProductsByCategoryAdapter(
+    private var productList: ArrayList<Product>,
+    private val listener: ClickItemListener
+) :
     RecyclerView.Adapter<ProductsByCategoryAdapter.ProductsByCategoryViewHolder>() {
+
 
     inner class ProductsByCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemTextView: TextView = itemView.findViewById(R.id.product_name)
         var imageView: ImageView = itemView.findViewById(R.id.product_image)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsByCategoryViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ProductsByCategoryViewHolder {
 
         return ProductsByCategoryViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -40,9 +47,26 @@ class ProductsByCategoryAdapter(private val productList: List<Product>) :
             .transition(DrawableTransitionOptions.withCrossFade(factory))
             .into(holder.imageView)
         holder.itemTextView.text = product.product_title
+
+        holder.imageView.setOnClickListener {
+            listener.onProductItemClicked(product)
+        }
+    }
+
+    fun addData(products: List<Product>) {
+        productList.addAll(products)
+    }
+
+    fun setData(products: ArrayList<Product>) {
+        this.productList = products
     }
 
     override fun getItemCount(): Int {
         return productList.size
     }
+
+    interface ClickItemListener {
+        fun onProductItemClicked(product: Product)
+    }
+
 }

@@ -8,11 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.app.ecovidx.R
 import com.app.ecovidx.databinding.FragmentPwdResetMailBinding
-import com.app.ecovidx.model.Password
+import com.app.ecovidx.data.model.Password
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.MainActivity
 import com.app.ecovidx.viewmodel.AuthViewModel
-import retrofit2.http.Body
 
 class ForgotPasswordMailFragment : Fragment(R.layout.fragment_pwd_reset_mail) {
 

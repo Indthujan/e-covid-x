@@ -3,7 +3,7 @@ package com.app.ecovidx.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.ecovidx.model.*
+import com.app.ecovidx.data.model.*
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.repository.AuthRepository
 import kotlinx.coroutines.launch

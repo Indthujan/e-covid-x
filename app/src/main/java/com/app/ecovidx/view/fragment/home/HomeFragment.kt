@@ -2,7 +2,6 @@ package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -11,13 +10,14 @@ import com.app.ecovidx.R
 import com.app.ecovidx.adapter.CategoryAdapter
 import com.app.ecovidx.adapter.ProductTypeAdapter
 import com.app.ecovidx.databinding.FragmentHomeBinding
-import com.app.ecovidx.model.Category
-import com.app.ecovidx.model.Product
+import com.app.ecovidx.data.model.Category
+import com.app.ecovidx.data.model.Product
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.HomeActivity
 import com.app.ecovidx.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItemListener {
+class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItemListener,
+    ProductTypeAdapter.ClickItemListener {
 
     lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
@@ -98,7 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
     }
 
     private fun setUpBestDealsRecyclerView(list: List<Product>) {
-        productTypeAdapter = ProductTypeAdapter(list)
+        productTypeAdapter = ProductTypeAdapter(list, this)
         binding.rvProdcutType.apply {
             adapter = productTypeAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -106,7 +106,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
     }
 
     private fun setUpLatestProductsRecyclerView(list: List<Product>) {
-        productTypeAdapter = ProductTypeAdapter(list)
+        productTypeAdapter = ProductTypeAdapter(list, this)
         binding.rvNewOffers.apply {
             adapter = productTypeAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -114,7 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
     }
 
     private fun setUpSpecialOffersRecyclerView(list: List<Product>) {
-        productTypeAdapter = ProductTypeAdapter(list)
+        productTypeAdapter = ProductTypeAdapter(list, this)
         binding.rvSpclOfrs.apply {
             adapter = productTypeAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -127,9 +127,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToProductsByCategoryFragment(
                     category.term_id,
-                    category.name
+                    category.name,
+                    category.count
                 )
             )
         }
+    }
+
+    override fun onProductItemClicked(product: Product) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product)
+        )
     }
 }

@@ -1,9 +1,9 @@
 package com.app.ecovidx.repository
 
 import com.app.ecovidx.api.RetrofitInstance
-import com.app.ecovidx.model.Login
-import com.app.ecovidx.model.Password
-import com.app.ecovidx.model.Register
+import com.app.ecovidx.data.model.Login
+import com.app.ecovidx.data.model.Password
+import com.app.ecovidx.data.model.Register
 
 class AuthRepository {
 

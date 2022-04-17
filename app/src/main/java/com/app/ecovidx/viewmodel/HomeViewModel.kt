@@ -3,9 +3,9 @@ package com.app.ecovidx.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.ecovidx.model.Category
-import com.app.ecovidx.model.Product
-import com.app.ecovidx.model.ProductType
+import com.app.ecovidx.data.model.Category
+import com.app.ecovidx.data.model.Product
+import com.app.ecovidx.data.model.ProductType
 import com.app.ecovidx.repository.HomeRepository
 import com.app.ecovidx.utils.Resource
 import kotlinx.coroutines.launch
@@ -18,6 +18,7 @@ class HomeViewModel(
     val categoryResponse: MutableLiveData<Resource<List<Category>>> = MutableLiveData()
     val productListResponse: MutableLiveData<Resource<ProductType>> = MutableLiveData()
     val productsByCategory: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
+    val allProducts: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
 
     init {
         getCategories()
@@ -68,6 +69,24 @@ class HomeViewModel(
     }
 
     private fun handleProductsByCategoryResponse(response: Response<List<Product>>): Resource<List<Product>> {
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    fun getAllProducts(offset: Int, limit: Int) = viewModelScope.launch {
+
+        allProducts.postValue(Resource.Loading())
+        val response = homeRepository.getAllProducts(offset, limit)
+        allProducts.postValue(handleAllProductsResponse(response))
+
+    }
+
+    private fun handleAllProductsResponse(response: Response<List<Product>>): Resource<List<Product>> {
 
         if (response.isSuccessful) {
             response.body()?.let {

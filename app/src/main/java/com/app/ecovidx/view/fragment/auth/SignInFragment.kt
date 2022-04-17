@@ -14,7 +14,7 @@ import com.app.ecovidx.databinding.FragmentSignInBinding
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.MainActivity
 import com.app.ecovidx.viewmodel.AuthViewModel
-import com.app.ecovidx.model.Login
+import com.app.ecovidx.data.model.Login
 import com.app.ecovidx.view.activity.HomeActivity
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
