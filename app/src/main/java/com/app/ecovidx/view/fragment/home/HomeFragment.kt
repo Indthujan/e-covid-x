@@ -3,6 +3,7 @@ package com.app.ecovidx.view.fragment.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
         getCategoriesResponse()
         getProductListResponse()
 
+        binding.toolbar.shoppingCart.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCartFragment()
+            )
+
+        }
     }
 
     private fun getProductListResponse() {
@@ -86,7 +93,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
                 }
             }
         })
-
     }
 
     private fun setUpCategoryRecyclerView(list: List<Category>) {
@@ -123,15 +129,27 @@ class HomeFragment : Fragment(R.layout.fragment_home), CategoryAdapter.ClickItem
 
     override fun onCategoryItemClicked(category: Category) {
 
-        if (category.count > 0) {
-            findNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToProductsByCategoryFragment(
-                    category.term_id,
-                    category.name,
-                    category.count
-                )
-            )
-        }
+//        if (category.count > 0) {
+//            findNavController().navigate(
+//                HomeFragmentDirections.actionHomeFragmentToProductsByCategoryFragment(
+//                    category.term_id,
+//                    category.name,
+//                    category.count
+//                )
+//            )
+//        }
+        val bundle = Bundle()
+        bundle.putInt("categoryID", category.term_id)
+        bundle.putInt("categoryCount", category.count)
+        bundle.putString("categoryName", category.name)
+
+        val fragment = ProductsByCategoryFragment()
+        fragment.arguments = bundle
+
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.cate_products_container, fragment, "fragment_pro")
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onProductItemClicked(product: Product) {

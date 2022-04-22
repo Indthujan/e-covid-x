@@ -8,11 +8,15 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.app.ecovidx.R
+import com.app.ecovidx.db.CartDatabase
+import com.app.ecovidx.repository.CartRepository
 import com.app.ecovidx.repository.HomeRepository
 import com.app.ecovidx.view.fragment.home.HomeFragmentDirections
 import com.app.ecovidx.view.fragment.home.ProductDetailFragmentDirections
 import com.app.ecovidx.view.fragment.home.ProductsByCategoryFragmentDirections
+import com.app.ecovidx.viewmodel.CartViewModel
 import com.app.ecovidx.viewmodel.HomeViewModel
+import com.app.ecovidx.viewmodel.providers.CartViewModelFactory
 import com.app.ecovidx.viewmodel.providers.HomeViewModelProviderFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity() {
 
     lateinit var viewModel: HomeViewModel
+    lateinit var cartViewModel: CartViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,11 @@ class HomeActivity : AppCompatActivity() {
         val repository = HomeRepository()
         val viewModelProviderFactory = HomeViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[HomeViewModel::class.java]
+
+        val db = CartDatabase(this)
+        val cartRepository = CartRepository(db)
+        val cartViewModelProviderFactory = CartViewModelFactory(cartRepository)
+        cartViewModel = ViewModelProvider(this, cartViewModelProviderFactory)[CartViewModel::class.java]
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as NavHostFragment

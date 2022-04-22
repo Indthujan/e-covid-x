@@ -25,12 +25,13 @@ class ForgotPasswordMailFragment : Fragment(R.layout.fragment_pwd_reset_mail) {
         binding = fragmentPwdResetMailBinding
 
         viewModel = (activity as MainActivity).viewModel
+        viewModel.verifyMail.value = null
 
         viewModel.verifyMail.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
                     it.data?.let { password ->
-                        if (password.message == "Email Not Exsist")
+                        if (password.message == "Email Not Exist")
                             Toast.makeText(context, "Check your Input", Toast.LENGTH_SHORT)
                                 .show()
                         else
@@ -59,10 +60,10 @@ class ForgotPasswordMailFragment : Fragment(R.layout.fragment_pwd_reset_mail) {
                 return@setOnClickListener
             }
 
-            viewModel.verifyMail(Password(mail.toString(),"","","","","", 0))
+            viewModel.verifyMail(Password(mail.toString(), "", "", "", "", "", 0))
         }
 
-        fragmentPwdResetMailBinding.toolbar.backView.setOnClickListener {
+        fragmentPwdResetMailBinding.fpmToolbar.backView.setOnClickListener {
             findNavController().popBackStack()
         }
     }

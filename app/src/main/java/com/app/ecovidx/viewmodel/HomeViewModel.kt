@@ -25,7 +25,7 @@ class HomeViewModel(
         getHomeProductList()
     }
 
-    fun getCategories() = viewModelScope.launch {
+    private fun getCategories() = viewModelScope.launch {
 
         categoryResponse.postValue(Resource.Loading())
         val response = homeRepository.getCategories()
@@ -42,7 +42,7 @@ class HomeViewModel(
         return Resource.Error(response.message())
     }
 
-    fun getHomeProductList() = viewModelScope.launch {
+    private fun getHomeProductList() = viewModelScope.launch {
 
         productListResponse.postValue(Resource.Loading())
         val response = homeRepository.getHomeProductList()

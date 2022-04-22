@@ -2,10 +2,7 @@ package com.app.ecovidx.api
 
 import com.app.ecovidx.data.model.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface APIService {
 
@@ -42,15 +39,24 @@ interface APIService {
 
     @GET("product/{id}/category/{offset}/offset/{limit}/limit")
     suspend fun getProductsByCategoryID(
-        @Path("id") id : Int,
-        @Path("offset") offset : Int,
-        @Path("limit") limit : Int
+        @Path("id") id: Int,
+        @Path("offset") offset: Int,
+        @Path("limit") limit: Int
     ): Response<List<Product>>
 
     @GET("product/{offset}/offset/{limit}/limit")
     suspend fun getAllProducts(
-        @Path("offset") offset : Int,
-        @Path("limit") limit : Int
+        @Path("offset") offset: Int,
+        @Path("limit") limit: Int
     ): Response<List<Product>>
 
+    @GET("user")
+    suspend fun getUserDetails(
+        @Header("Authorization") token: String
+    ): Response<Product>
+
+    @POST("user/update")
+    suspend fun updateUserDetails(
+        @Body body: Password
+    ): Response<Password>
 }

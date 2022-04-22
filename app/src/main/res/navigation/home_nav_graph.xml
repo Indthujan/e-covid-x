@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_allProductsFragment"
             app:destination="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsByCategoryFragment"
@@ -81,8 +84,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.app.ecovidx.view.fragment.home.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:name="com.app.ecovidx.view.fragment.user.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_accountDetailsFragment"
+            app:destination="@id/accountDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/allProductsFragment"
         android:name="com.app.ecovidx.view.fragment.home.AllProductsFragment"
@@ -96,4 +103,20 @@
 
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/accountDetailsFragment"
+        android:name="com.app.ecovidx.view.fragment.user.AccountDetailsFragment"
+        android:label="AccountDetailsFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.app.ecovidx.view.fragment.cart.CartFragment"
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.app.ecovidx.view.fragment.cart.CheckOutFragment"
+        android:label="CheckOutFragment" />
 </navigation>

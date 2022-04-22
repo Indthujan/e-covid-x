@@ -50,7 +50,7 @@ class ForgotPasswordResetFragment : Fragment(R.layout.fragment_pwd_reset_new) {
         fragmentPwdResetNewBinding.resetPassword.setOnClickListener {
             resetNewPassword()
         }
-        fragmentPwdResetNewBinding.toolbar.backView.setOnClickListener {
+        fragmentPwdResetNewBinding.fprToolbar.backView.setOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -1,7 +1,9 @@
 package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,10 +21,9 @@ import com.app.ecovidx.view.activity.HomeActivity
 import com.app.ecovidx.viewmodel.HomeViewModel
 import java.util.ArrayList
 
-class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_category), ProductsByCategoryAdapter.ClickItemListener {
+class ProductsByCategoryFragment : Fragment(), ProductsByCategoryAdapter.ClickItemListener {
 
     private lateinit var binding: FragmentProductsbyCategoryBinding
-    private val args: ProductsByCategoryFragmentArgs by navArgs()
     lateinit var viewModel: HomeViewModel
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
     private var itemsList = ArrayList<Product>()
@@ -30,19 +31,32 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
     private var limit = 21
     private var totalCount = 0
     private var loadData = false
+    private var savedViewInstance: View? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return  if (savedViewInstance != null) {
+            savedViewInstance
+        } else {
+            savedViewInstance =
+                inflater.inflate(R.layout.fragment_productsby_category, container, false)
+            savedViewInstance
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val fragmentProductsCategoryBinding = FragmentProductsbyCategoryBinding.bind(view)
         binding = fragmentProductsCategoryBinding
-        binding.fpcToolbar.title.text = args.categoryName
-
+        binding.fpcToolbar.title.text = arguments!!.getString("categoryName")
         viewModel = (activity as HomeActivity).viewModel
         viewModel.productsByCategory.value = null
         getProductsByCategoryResponse()
-        viewModel.getProductsByCategoryID(args.categoryId, offset, limit)
+        viewModel.getProductsByCategoryID(arguments!!.getInt("categoryID"), offset, limit)
 
         binding.fpcToolbar.backView.setOnClickListener {
             findNavController().popBackStack()
@@ -52,13 +66,12 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == totalCount - 1) {
-                    if (totalCount < args.categoryCount) {
+                    if (totalCount < arguments!!.getInt("categoryCount")) {
                         offset += 21
                         loadData = true
-                        viewModel.getProductsByCategoryID(args.categoryId, offset, limit)
+                        viewModel.getProductsByCategoryID(arguments!!.getInt("categoryID"), offset, limit)
                     }
                 }
             }
@@ -109,9 +122,13 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_productsby_categor
     }
 
     override fun onProductItemClicked(product: Product) {
-        findNavController().navigate(
-            ProductsByCategoryFragmentDirections.actionProductsByCategoryFragmentToProductDetailFragment(product)
-        )
+//        findNavController().navigate(
+//            ProductsByCategoryFragmentDirections.actionProductsByCategoryFragmentToProductDetailFragment(product)
+//        )
 
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.all_products_container, AllProductsFragment(), "fragment_all")
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

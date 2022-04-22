@@ -29,6 +29,8 @@ class ForgotPasswordOtpFragment : Fragment(R.layout.fragment_pwd_reset_otp) {
 
         viewModel = (activity as MainActivity).viewModel
 
+        viewModel.verifyOtp.value = null
+
         viewModel.verifyOtp.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
@@ -65,7 +67,7 @@ class ForgotPasswordOtpFragment : Fragment(R.layout.fragment_pwd_reset_otp) {
             else
                 Toast.makeText(context, "Check OTP", Toast.LENGTH_SHORT).show()
         }
-        fragmentPwdResetOtpBinding.toolbar.backView.setOnClickListener {
+        fragmentPwdResetOtpBinding.fpoToolbar.backView.setOnClickListener {
             findNavController().popBackStack()
         }
     }

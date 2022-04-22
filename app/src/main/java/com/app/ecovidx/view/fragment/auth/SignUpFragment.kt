@@ -54,7 +54,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
-                        println("asdasd 111 $message")
+
                     }
                 }
 //                is Resource.Loading -> TODO()

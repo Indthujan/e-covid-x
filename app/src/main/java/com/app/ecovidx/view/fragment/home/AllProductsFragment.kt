@@ -2,7 +2,9 @@ package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,7 +30,6 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsBy
     private var totalCount = 0
     private var loadData = false
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,12 +37,14 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsBy
         binding = fragmentAllProductsBinding
 
         viewModel = (activity as HomeActivity).viewModel
-        viewModel.productsByCategory.value = null
+        viewModel.allProducts.value = null
         getProductsByCategoryResponse()
         viewModel.getAllProducts(offset, limit)
 
         binding.allProductsToolbar.backView.setOnClickListener {
-            findNavController().popBackStack()
+
+            requireActivity().supportFragmentManager.popBackStack()
+
         }
 
         binding.rvAllProducts.addOnScrollListener(object :

@@ -21,5 +21,6 @@
     <string name="verify">Verify</string>
     <string name="verify_p">Verify &amp; Process</string>
     <string name="categories">Categories</string>
+    <string name="amount_symbol">£ %.2f%n</string>
 
 </resources>

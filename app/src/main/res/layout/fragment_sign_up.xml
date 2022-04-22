@@ -4,23 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/app_logo"
-        android:layout_width="329dp"
-        android:layout_height="154dp"
-        android:layout_marginTop="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_logo">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/app_logo"
+            android:layout_width="329dp"
+            android:layout_height="154dp"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/app_logo" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,6 +46,8 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="textNoSuggestions"
                 android:background="@color/white"
                 android:hint="@string/name" />
 
@@ -62,6 +66,8 @@
                 android:id="@+id/mail_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
                 android:background="@color/white"
                 android:hint="@string/mail_address" />
 
@@ -81,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:hint="@string/password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:hint="@string/confirm_password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

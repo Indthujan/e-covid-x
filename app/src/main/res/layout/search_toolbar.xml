@@ -31,7 +31,7 @@
             android:queryHint="Search View" />
 
         <ImageView
-            android:id="@+id/test"
+            android:id="@+id/shopping_cart"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="end"
