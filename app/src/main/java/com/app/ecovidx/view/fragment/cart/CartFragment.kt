@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -41,6 +43,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         viewModel.getAllShoppingItems().observe(viewLifecycleOwner, Observer {
 
+            if (it.isEmpty()) binding.checkOut.visibility = View.GONE
             adapter.items = it
             itemList = it.toMutableList()
             adapter.notifyDataSetChanged()
@@ -49,14 +52,22 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         })
 
         binding.checkOut.setOnClickListener {
-            findNavController().navigate(
-                CartFragmentDirections.actionCartFragmentToCheckOutFragment()
-            )
+            val currentFragment = requireActivity().supportFragmentManager.findFragmentByTag("fragment_cart_to_checkout")
+            if (currentFragment != null) {
+                requireActivity().supportFragmentManager.commit {
+                    remove(currentFragment)
+                }
+            }
+            requireActivity().supportFragmentManager.commit {
+                replace(R.id.cart_to_checkout_container, CheckOutFragment(), "fragment_cart_to_checkout")
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                addToBackStack(null)
+            }
         }
     }
 
     private fun swipeToDelete() {
-        val touchHelper = object : SwipeHelper(context!!) {
+        val touchHelper = object : SwipeHelper(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
                 when (direction) {
@@ -69,6 +80,5 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         }
         val itemTouchHelper = ItemTouchHelper(touchHelper)
         itemTouchHelper.attachToRecyclerView(binding.rvCartItems)
-
     }
 }

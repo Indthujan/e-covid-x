@@ -20,8 +20,8 @@ class ProductsByCategoryAdapter(
 
 
     inner class ProductsByCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemTextView: TextView = itemView.findViewById(R.id.product_name)
-        var imageView: ImageView = itemView.findViewById(R.id.product_image)
+        var itemTextView: TextView = itemView.findViewById(R.id.product_name_grid)
+        var imageView: ImageView = itemView.findViewById(R.id.product_image_grid)
     }
 
     override fun onCreateViewHolder(
@@ -31,7 +31,7 @@ class ProductsByCategoryAdapter(
 
         return ProductsByCategoryViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.product_item,
+                R.layout.product_item_grid,
                 parent,
                 false
             )

@@ -20,4 +20,8 @@ class CartViewModel(
     }
 
     fun getAllShoppingItems() = repository.getAllCartItems()
+
+    fun deleteAllCartItems() = CoroutineScope(Dispatchers.Main).launch {
+        repository.deleteCartItems()
+    }
 }

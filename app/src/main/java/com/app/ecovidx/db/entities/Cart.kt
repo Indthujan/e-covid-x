@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "cart_items")
 data class Cart(
+    @PrimaryKey val id: Int,
+
     @ColumnInfo(name = "product_name")
     var product: String,
 
@@ -17,8 +19,4 @@ data class Cart(
 
     @ColumnInfo(name = "price")
     var price: Double
-
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
-}
+)

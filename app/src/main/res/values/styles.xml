@@ -13,7 +13,6 @@
 
     <style name="TextInputLayoutStyle.Account" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@color/white</item>
-
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>

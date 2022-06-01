@@ -3,6 +3,8 @@ package com.app.ecovidx.view.fragment.cart
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ecovidx.R
@@ -10,13 +12,13 @@ import com.app.ecovidx.adapter.CheckOutAdapter
 import com.app.ecovidx.databinding.FragmentCheckoutBinding
 import com.app.ecovidx.db.entities.Cart
 import com.app.ecovidx.view.activity.HomeActivity
+import com.app.ecovidx.view.fragment.user.AccountDetailsFragment
 import com.app.ecovidx.viewmodel.CartViewModel
 
 class CheckOutFragment : Fragment(R.layout.fragment_checkout) {
 
     lateinit var binding: FragmentCheckoutBinding
     lateinit var viewModel: CartViewModel
-    private var totalAmount = 0.00
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +32,17 @@ class CheckOutFragment : Fragment(R.layout.fragment_checkout) {
         binding.rvCheckOutItems.layoutManager = LinearLayoutManager(activity)
         binding.rvCheckOutItems.adapter = adapter
 
+        binding.backView.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.continueBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.commit {
+                replace(R.id.check_out_container, BillingFragment(), "fragment_to_billing")
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                addToBackStack(null)
+            }
+
+        }
         viewModel.getAllShoppingItems().observe(viewLifecycleOwner, Observer {
 
             if (it != null) {
@@ -41,6 +54,7 @@ class CheckOutFragment : Fragment(R.layout.fragment_checkout) {
     }
 
     private fun checkoutSum(list: List<Cart>) {
+        var totalAmount = 0.00
         for (i in list) {
             totalAmount += i.price * i.quantity
         }

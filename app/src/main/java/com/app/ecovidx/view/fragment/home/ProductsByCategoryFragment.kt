@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -59,7 +61,7 @@ class ProductsByCategoryFragment : Fragment(), ProductsByCategoryAdapter.ClickIt
         viewModel.getProductsByCategoryID(arguments!!.getInt("categoryID"), offset, limit)
 
         binding.fpcToolbar.backView.setOnClickListener {
-            findNavController().popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.rvProductsOfCategories.addOnScrollListener(object :
@@ -122,13 +124,16 @@ class ProductsByCategoryFragment : Fragment(), ProductsByCategoryAdapter.ClickIt
     }
 
     override fun onProductItemClicked(product: Product) {
-//        findNavController().navigate(
-//            ProductsByCategoryFragmentDirections.actionProductsByCategoryFragmentToProductDetailFragment(product)
-//        )
 
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.all_products_container, AllProductsFragment(), "fragment_all")
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val bundle = Bundle()
+        bundle.putParcelable("product", product)
+        val fragment = ProductDetailFragment()
+        fragment.arguments = bundle
+
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.product_detail_container, fragment, "fragment_category_to_detail")
+            setTransition(TRANSIT_FRAGMENT_OPEN)
+            addToBackStack(null)
+        }
     }
 }

@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_outline_home"
+        android:icon="@drawable/home"
         tools:ignore="MenuTitle"/>
 
     <item
@@ -14,7 +14,8 @@
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_outline_account_circle"
-        tools:ignore="MenuTitle" />
+        android:icon="@drawable/user_new"
+        tools:ignore="MenuTitle"
+        />
 
 </menu>

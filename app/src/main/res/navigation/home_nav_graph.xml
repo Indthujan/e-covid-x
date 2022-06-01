@@ -40,9 +40,6 @@
         <action
             android:id="@+id/action_homeFragment_to_allProductsFragment"
             app:destination="@id/allProductsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsByCategoryFragment"
@@ -75,9 +72,6 @@
         android:id="@+id/productDetailFragment"
         android:name="com.app.ecovidx.view.fragment.home.ProductDetailFragment"
         android:label="ProductDetailFragment">
-        <argument
-            android:name="product"
-            app:argType="com.app.ecovidx.data.model.Product" />
         <action
             android:id="@+id/action_productDetailFragment_to_allProductsFragment"
             app:destination="@id/allProductsFragment" />
@@ -89,6 +83,9 @@
         <action
             android:id="@+id/action_profileFragment_to_accountDetailsFragment"
             app:destination="@id/accountDetailsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/allProductsFragment"
@@ -111,9 +108,6 @@
         android:id="@+id/cartFragment"
         android:name="com.app.ecovidx.view.fragment.cart.CartFragment"
         android:label="CartFragment" >
-        <action
-            android:id="@+id/action_cartFragment_to_checkOutFragment"
-            app:destination="@id/checkOutFragment" />
     </fragment>
     <fragment
         android:id="@+id/checkOutFragment"

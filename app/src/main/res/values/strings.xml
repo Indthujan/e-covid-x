@@ -22,5 +22,14 @@
     <string name="verify_p">Verify &amp; Process</string>
     <string name="categories">Categories</string>
     <string name="amount_symbol">£ %.2f%n</string>
+    <string name="all_products">All Products</string>
+    <string name="app_exit">Press back again to leave the app.</string>
+    <string name="coupan_descp">If you have a coupon code, please apply it below.</string>
+    <string name="profile">Profile</string>
+    <string name="different_address">Deliver to a different address?</string>
+    <string name="date_text">Date : %1$s</string>
+    <string name="status_text">Status : %1$s</string>
+    <string name="pound">£ %1$s</string>
+    <string name="quantity_price">%1$d X £ %2$.2f</string>
 
 </resources>

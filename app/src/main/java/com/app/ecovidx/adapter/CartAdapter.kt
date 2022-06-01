@@ -35,28 +35,10 @@ class CartAdapter(
         item = cartItem
         holder.itemTextView.text = cartItem.product
         holder.quantity.text = cartItem.quantity.toString()
-        holder.price.text = cartItem.price.toString()
+        holder.price.text = "£ " + cartItem.price.toString()
         Glide.with(holder.itemView.context)
             .load(cartItem.image)
             .into(holder.itemImage)
-
-
-//        holder.itemView.ivDelete.setOnClickListener {
-//            viewModel.delete(currentShoppingItem)
-//        }
-//
-//        holder.itemView.ivPlus.setOnClickListener {
-//            currentShoppingItem.amount++
-//            viewModel.upsert(currentShoppingItem)
-//        }
-//
-//        holder.itemView.ivMinus.setOnClickListener {
-//            if (currentShoppingItem.amount > 0) {
-//                currentShoppingItem.amount--
-//                viewModel.upsert(currentShoppingItem)
-//            }
-//        }
-
     }
 
     override fun getItemCount(): Int {

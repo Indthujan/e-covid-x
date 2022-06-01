@@ -8,7 +8,7 @@ import com.app.ecovidx.db.entities.Cart
 
 @Database(
     entities = [Cart::class],
-    version = 3
+    version = 5
 )
 abstract class CartDatabase : RoomDatabase() {
 
@@ -27,9 +27,8 @@ abstract class CartDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 CartDatabase::class.java,
-                "CartDB.db"
-            ).fallbackToDestructiveMigration()
+                "CartDB.db")
+                .fallbackToDestructiveMigration()
                 .build()
     }
-
 }

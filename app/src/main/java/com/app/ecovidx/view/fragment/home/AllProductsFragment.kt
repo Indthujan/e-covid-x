@@ -2,11 +2,9 @@ package com.app.ecovidx.view.fragment.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,6 @@ import com.app.ecovidx.databinding.FragmentAllProductsBinding
 import com.app.ecovidx.utils.Resource
 import com.app.ecovidx.view.activity.HomeActivity
 import com.app.ecovidx.viewmodel.HomeViewModel
-import java.util.ArrayList
 
 class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsByCategoryAdapter.ClickItemListener {
 
@@ -41,11 +38,8 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsBy
         getProductsByCategoryResponse()
         viewModel.getAllProducts(offset, limit)
 
-        binding.allProductsToolbar.backView.setOnClickListener {
-
-            requireActivity().supportFragmentManager.popBackStack()
-
-        }
+        binding.allProductsToolbar.backView.visibility = View.GONE
+        binding.allProductsToolbar.title.text = getString(R.string.all_products)
 
         binding.rvAllProducts.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
@@ -54,7 +48,7 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsBy
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == totalCount - 1) {
-                    if (totalCount < 200) {
+                    if (totalCount < 150) {
                         offset += 21
                         loadData = true
                         viewModel.getAllProducts(offset, limit)
@@ -108,9 +102,16 @@ class AllProductsFragment : Fragment(R.layout.fragment_all_products), ProductsBy
     }
 
     override fun onProductItemClicked(product: Product) {
-        findNavController().navigate(
-            AllProductsFragmentDirections.actionAllProductsFragmentToProductDetailFragment(product)
-        )
+        val bundle = Bundle()
+        bundle.putParcelable("product", product)
 
+        val fragment = ProductDetailFragment()
+        fragment.arguments = bundle
+
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.product_all_container, fragment, "fragment_all_to_detail")
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

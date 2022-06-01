@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //AuthViewModel
         val repository = AuthRepository()
         val viewModelProviderFactory = AuthViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[AuthViewModel::class.java]
-
     }
 }

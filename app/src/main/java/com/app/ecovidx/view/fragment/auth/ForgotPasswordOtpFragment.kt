@@ -61,7 +61,6 @@ class ForgotPasswordOtpFragment : Fragment(R.layout.fragment_pwd_reset_otp) {
             otp = it
         }
         fragmentPwdResetOtpBinding.verifyP.setOnClickListener {
-
             if (otp == args.otp)
                 viewModel.verifyOTP(Password("", "", "", "", "", otp, args.userId))
             else

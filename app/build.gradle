@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id "kotlin-kapt"
     id "androidx.navigation.safeargs.kotlin"
+    id "kotlin-parcelize"
 }
 
 android {
@@ -71,9 +72,26 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.4.1"
     implementation "androidx.navigation:navigation-ui-ktx:2.4.1"
 
-    //Splash API
+    // Splash API
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 
-    //OTP view
+    // Paging3
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    // Room
+    implementation "androidx.room:room-runtime:2.4.2"
+    implementation "androidx.room:room-ktx:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
+
+    // OTP view
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
+
+    // Swipe decorator
+    implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
+
+    // Pager indicator
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

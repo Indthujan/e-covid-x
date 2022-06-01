@@ -27,7 +27,7 @@ class CheckOutAdapter(
         val cartItem = items[position]
 
         holder.itemName.text = cartItem.product
-        holder.price.text = "£ " + (cartItem.price * cartItem.quantity).toString()
+        holder.price.text = holder.itemView.context.getString(R.string.quantity_price, cartItem.quantity, cartItem.price)
     }
 
     override fun getItemCount(): Int {

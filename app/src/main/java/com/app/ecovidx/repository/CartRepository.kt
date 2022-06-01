@@ -11,4 +11,6 @@ class CartRepository (
     suspend fun delete(item: Cart) = db.getCartDAO().delete(item)
 
     fun getAllCartItems() = db.getCartDAO().getAllCartItems()
+
+    suspend fun deleteCartItems() = db.getCartDAO().deleteCartItems()
 }
